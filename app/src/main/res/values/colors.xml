@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#F17180</color>         <!-- Medium bright pink/red -->
+    <color name="colorPrimaryVariant">#9C2533</color>  <!-- Dark reddish -->
+    <color name="colorOnPrimary">#FFFFFF</color>       <!-- White for contrast -->
+    <!-- Secondary colors -->
+    <color name="colorSecondary">#F8AFB8</color>       <!-- Light pink -->
+    <color name="colorSecondaryVariant">#B56D75</color> <!-- Muted red/pink -->
+    <color name="colorOnSecondary">#92585E</color>     <!-- Black for contrast -->
+    <!-- Background and surface -->
+    <color name="colorBackground">#FADADA</color>      <!-- Very light pink -->
+    <color name="colorOnBackground">#000000</color>    <!-- Black text -->
+    <color name="colorSurface">#FFFFFF</color>         <!-- White surface -->
+    <color name="colorOnSurface">#000000</color>
+
+    <color name="colorPrimaryDark">#F17180</color>         <!-- Keep bright pink/red for emphasis -->
+    <color name="colorPrimaryVariantDark">#7A1B23</color>  <!-- Darker variant of 9C2533 for contrast -->
+    <color name="colorOnPrimaryDark">#000000</color>       <!-- Black on bright primary -->
+    <!-- Secondary colors -->
+    <color name="colorSecondaryDark">#F8AFB8</color>       <!-- Use as accent on dark backgrounds -->
+    <color name="colorSecondaryVariantDark">#7F4B53</color> <!-- Darkened B56D75 -->
+    <color name="colorOnSecondaryDark">#000000</color>     <!-- Black for contrast -->
+    <!-- Background and surface -->
+    <color name="colorBackgroundDark">#13011C</color>      <!-- Dark background typical in dark themes -->
+    <color name="colorOnBackgroundDark">#FFFFFF</color>    <!-- White text on dark background -->
+    <color name="colorSurfaceDark">#1E1E1E</color>         <!-- Slightly lighter dark surface -->
+    <color name="colorOnSurfaceDark">#FFFFFF</color>       <!-- White text -->
+    <!-- Error colors -->
+    <color name="colorErrorDark">#CF6679</color>           <!-- Standard dark theme error color -->
+    <color name="colorOnErrorDark">#260707</color>         <!-- Black text on error -->
+    <!-- Additional colors -->
+    <color name="colorDisabled">#6E6E6E</color>        <!-- Grey for disabled in dark theme -->
+    <color name="colorRipple">#F17180</color>
+
+    <color name="colorTitleMain">#F6656E</color>
+</resources>
