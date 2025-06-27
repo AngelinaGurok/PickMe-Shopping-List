@@ -35,6 +35,12 @@
         <item name="tint">@color/colorOnPrimary</item>
     </style>
 
+    <style name="Base.Widget.Material3.FloatingActionButton.MySecondaryFloatingButton">
+        <item name="android:backgroundTint">@color/colorSecondaryVariant</item>
+        <item name="tint">@color/colorOnPrimary</item>
+        <item name="cornerRadius">40dp</item>
+    </style>
+
     <style name="Base.Widget.MaterialComponents.TextView.MyScreenTitleText">
         <item name="android:textColor">@color/colorTitleMain</item>
         <item name="android:textColorHint">@color/colorSecondary</item>

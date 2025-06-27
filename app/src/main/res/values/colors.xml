@@ -7,7 +7,7 @@
     <color name="colorOnPrimary">#FFFFFF</color>       <!-- White for contrast -->
     <!-- Secondary colors -->
     <color name="colorSecondary">#F8AFB8</color>       <!-- Light pink -->
-    <color name="colorSecondaryVariant">#B56D75</color> <!-- Muted red/pink -->
+    <color name="colorSecondaryVariant">#E89090</color> <!-- Muted red/pink -->
     <color name="colorOnSecondary">#92585E</color>     <!-- Black for contrast -->
     <!-- Background and surface -->
     <color name="colorBackground">#FADADA</color>      <!-- Very light pink -->

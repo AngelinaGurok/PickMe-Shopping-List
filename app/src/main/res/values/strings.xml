@@ -4,5 +4,7 @@
     <string name="title">Title</string>
     <string name="main_title">Shopping list</string>
     <string name="add_item">Add item</string>
-    <string name="enter_title">Enter name of good here</string>
+    <string name="enter_title_hint">Enter name of good here</string>
+    <string name="hint_under_image">Click here to take photo</string>
+    <string name="description_hint">Enter description of the good here</string>
 </resources>
