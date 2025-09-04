@@ -5,19 +5,19 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/mainScreenFragment">
 
-    <fragment
-        android:id="@+id/addItemFragment"
-        android:name="com.example.shoppinglist.ui.AddItemFragment"
-        android:label="fragment_add_item"
-        tools:layout="@layout/fragment_add_item" />
+
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.example.shoppinglist.ui.MainScreenFragment"
         android:label="MainScreenFragment"
         tools:layout="@layout/main_screen_fragment">
         <action
-            android:id="@+id/action_mainScreenFragment_to_addItemFragment"
+            android:id="@+id/action_mainScreenFragment_to_addItemFragment2"
             app:destination="@id/addItemFragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.example.shoppinglist.ui.AddItemFragment"
+        android:label="fragment_add_item"
+        tools:layout="@layout/fragment_add_item" />
 </navigation>

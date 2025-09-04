@@ -15,6 +15,7 @@ import com.example.shoppinglist.utils.Utils.dataSet
 class MainScreenFragment : Fragment() {
     private var _binding: MainScreenFragmentBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,6 +27,9 @@ class MainScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.addButton.setOnClickListener{
+            findNavController().navigate(R.id.action_mainScreenFragment_to_addItemFragment2)
+        }
         setupViews()
     }
 
@@ -40,9 +44,5 @@ class MainScreenFragment : Fragment() {
         //fragment has no context, so we use require context from the activity to which the
         //fragment is attached
         binding.shoppingListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        binding.addButton.setOnClickListener{
-            findNavController().navigate(R.id.action_mainScreenFragment_to_addItemFragment)
-        }
     }
 }
