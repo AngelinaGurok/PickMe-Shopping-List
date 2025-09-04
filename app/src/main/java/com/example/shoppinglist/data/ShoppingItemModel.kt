@@ -2,9 +2,9 @@ package com.example.shoppinglist.data
 
 import com.example.shoppinglist.adapter.ItemListAdapter.Companion.VIEW_TYPE_IMAGE_ITEM
 import com.example.shoppinglist.adapter.ItemListAdapter.Companion.VIEW_TYPE_TEXT_ITEM
-import java.io.Serializable
 
 data class ShoppingItemModel(
+    val id: Long,
     val title: String,
     val image: Int?,
     val amount: Int,
