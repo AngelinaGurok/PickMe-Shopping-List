@@ -8,15 +8,19 @@ class ShoppingListViewModel(
     val repository: ShoppingItemRepository
 ) : ViewModel() {
 
-    fun addItem(item: ShoppingItemModel){
+    fun addItem(item: ShoppingItemModel) {
         repository.addItem(item)
     }
 
-    fun deleteItem(item: ShoppingItemModel){
+    fun deleteItem(item: ShoppingItemModel) {
         repository.removeItem(item)
     }
 
-    fun clearShoppingList(){
+    fun clearShoppingList() {
         repository.clearShoppingList()
+    }
+
+    fun getAll(): List<ShoppingItemModel> {
+        return  repository.getAll()
     }
 }

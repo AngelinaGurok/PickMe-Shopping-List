@@ -49,6 +49,7 @@ class AddItemFragment : Fragment() {
                 if(itemToSave != null) {
                     viewModel.addItem(itemToSave)
                 }
+                Log.d("MyTag", viewModel.getAll().toString())
             }
         }
     }

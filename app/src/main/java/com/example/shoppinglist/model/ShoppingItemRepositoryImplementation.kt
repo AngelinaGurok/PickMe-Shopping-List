@@ -33,4 +33,6 @@ class ShoppingItemRepositoryImplementation(
         database.clear()
     }
 
+    override fun getAll() = database.toList()
+
 }

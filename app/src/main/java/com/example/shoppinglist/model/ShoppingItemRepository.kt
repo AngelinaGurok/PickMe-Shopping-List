@@ -13,4 +13,6 @@ interface ShoppingItemRepository {
     fun removeItem(itemToRemove: ShoppingItemModel)
 
     fun clearShoppingList()
+
+    fun getAll(): List<ShoppingItemModel>
 }
