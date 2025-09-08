@@ -13,6 +13,7 @@ import com.example.shoppinglist.data.ShoppingItemModel
 import com.example.shoppinglist.databinding.FragmentAddItemBinding
 import com.example.shoppinglist.domain.ShoppingListViewModel
 import com.example.shoppinglist.domain.ShoppingListViewModelFactory
+import java.lang.Thread.sleep
 
 
 class AddItemFragment : Fragment() {
@@ -49,6 +50,13 @@ class AddItemFragment : Fragment() {
                 if(itemToSave != null) {
                     viewModel.addItem(itemToSave)
                 }
+                //remove
+                val textToSend = descriptionEditText.text.toString()
+                viewModel.loadDataFromServer(textToSend)
+                viewModel.loadedDataFromServer.observe(viewLifecycleOwner){ liveDataValue ->
+                    Log.d("MyTag", "Livedata gives us: ${liveDataValue}")
+                }
+                //
             }
         }
     }
