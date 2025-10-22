@@ -7,14 +7,23 @@ import com.example.shoppinglist.model.ShoppingItemRepository
 import java.lang.Thread.sleep
 
 class ShoppingListViewModel(
-    val repository: ShoppingItemRepository
+    private val repository: ShoppingItemRepository
 ) : ViewModel() {
 
-    val loadedDataFromServer: MutableLiveData<String> = MutableLiveData()
+    //val loadedDataFromServer: MutableLiveData<String> = MutableLiveData()
+
+    val databaseData: MutableLiveData<List<ShoppingItemModel>> = MutableLiveData()
 
     fun addItem(item: ShoppingItemModel){
         repository.addItem(item)
+
+        databaseData.value = getAll()
     }
+
+    fun updateItem(item: ShoppingItemModel){
+        repository.updateItem(item)
+
+        databaseData.value = getAll()    }
 
     fun deleteItem(item: ShoppingItemModel){
         repository.removeItem(item)
@@ -24,10 +33,14 @@ class ShoppingListViewModel(
         repository.clearShoppingList()
     }
 
-    fun loadDataFromServer(s: String) {
+    fun getAll() : ArrayList<ShoppingItemModel>{
+        return repository.getAll()
+    }
+
+    /*fun loadDataFromServer(s: String) {
         Thread(Runnable {
             sleep(1500)
             loadedDataFromServer.postValue(s)
         }).start()
-    }
+    }*/
 }

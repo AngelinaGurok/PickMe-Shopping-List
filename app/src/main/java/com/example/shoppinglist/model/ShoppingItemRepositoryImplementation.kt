@@ -5,8 +5,14 @@ import com.example.shoppinglist.data.ShoppingItemModel
 class ShoppingItemRepositoryImplementation(
     val database: ArrayList<ShoppingItemModel>
 ) : ShoppingItemRepository{
+
+
     override fun addItem(item: ShoppingItemModel) {
         database.add(item)
+    }
+
+    override fun getAll() : ArrayList<ShoppingItemModel> {
+        return database
     }
 
     override fun getItemByTitle(title: String) : ShoppingItemModel? {
@@ -22,6 +28,7 @@ class ShoppingItemRepositoryImplementation(
         if(item != null){
             database.remove(item)
             database.add(itemToUpdate)
+            database.sortWith(compareBy({it.isPurchased}, {it.id}))
         }
     }
 

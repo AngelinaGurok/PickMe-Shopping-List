@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.shoppinglist.MyApp
 import com.example.shoppinglist.data.ShoppingItemModel
 import com.example.shoppinglist.databinding.FragmentAddItemBinding
@@ -21,7 +23,7 @@ class AddItemFragment : Fragment() {
     private var _binding: FragmentAddItemBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ShoppingListViewModel by viewModels {
+    private val viewModel: ShoppingListViewModel by activityViewModels() {
         ShoppingListViewModelFactory(
             (requireActivity().application as MyApp).shoppingItemRepository
         )
@@ -39,24 +41,55 @@ class AddItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("MyTag", "onVeiwCreated: ${viewModel.toString()}")
+        Log.d("MyTag", "onViewCreated add fragment: ${viewModel.toString()}")
         setUpViews()
     }
 
     private fun setUpViews(){
         with(binding){
+            decreaseAmountButton.setOnClickListener {
+                decreaseAmount()
+            }
+
+            increaseAmountButton.setOnClickListener {
+                increaseAmount()
+            }
+
             confirmItemButton.setOnClickListener{
                 val itemToSave = createItemToSave()
                 if(itemToSave != null) {
                     viewModel.addItem(itemToSave)
                 }
                 //remove
-                val textToSend = descriptionEditText.text.toString()
+                /*val textToSend = descriptionEditText.text.toString()
                 viewModel.loadDataFromServer(textToSend)
                 viewModel.loadedDataFromServer.observe(viewLifecycleOwner){ liveDataValue ->
-                    Log.d("MyTag", "Livedata gives us: ${liveDataValue}")
-                }
-                //
+                    binding.addItemTitleTextView.text = liveDataValue
+                }*/
+
+                findNavController().popBackStack()
+            }
+
+            returnToShoppingListButton.setOnClickListener{
+                findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun increaseAmount() {
+        with(binding){
+            var amount = amountTextView.text.toString().toInt()
+            amount++
+            amountTextView.text = amount.toString()
+        }
+    }
+
+    private fun decreaseAmount() {
+        with(binding){
+            var amount = amountTextView.text.toString().toInt()
+            if(amount > 0 ) {
+                amount--
+                amountTextView.text = amount.toString()
             }
         }
     }
@@ -66,7 +99,7 @@ class AddItemFragment : Fragment() {
             ShoppingItemModel(
                 id = System.currentTimeMillis(),
                 title = titleEditText.text.toString(),
-                amount = 1,
+                amount = amountTextView.text.toString().toInt(),
                 description = descriptionEditText.text.toString(),
                 isPurchased = false,
                 image = null

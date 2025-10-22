@@ -6,6 +6,8 @@ interface ShoppingItemRepository {
 
     fun addItem(item: ShoppingItemModel)
 
+    fun getAll() : ArrayList<ShoppingItemModel>
+
     fun getItemByTitle(title: String) : ShoppingItemModel?
 
     fun updateItem(itemToUpdate: ShoppingItemModel)

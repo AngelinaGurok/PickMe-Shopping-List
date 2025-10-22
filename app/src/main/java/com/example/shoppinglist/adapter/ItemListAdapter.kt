@@ -1,41 +1,85 @@
 package com.example.shoppinglist.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.text.BoringLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppinglist.R
 import com.example.shoppinglist.data.ShoppingItemModel
 import com.example.shoppinglist.databinding.ShoppingListImageItemBinding
 import com.example.shoppinglist.databinding.ShoppingListTextItemBinding
 
 class ItemListAdapter(
-    val list: ArrayList<ShoppingItemModel>
+    var list: List<ShoppingItemModel>,
+    val changeItemStatusInStorageToPurchased: (ShoppingItemModel) -> Unit,
+    val changeItemStatusInStorageToNotPurchased: (ShoppingItemModel) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    class ImageItemViewHolder(val bindingImageItem: ShoppingListImageItemBinding) :
+    inner class ImageItemViewHolder(val bindingImageItem: ShoppingListImageItemBinding) :
         RecyclerView.ViewHolder(bindingImageItem.root){
+
             fun bindImageItem(item: ShoppingItemModel){
+
             with(bindingImageItem){
+
                 titleImageItemTextView.text = item.title
                 imageItemDescriptionTextView.text = item.description
                 item.image?.let { itemImageItemImageView.setImageResource(it) }
+                amountCountTextView.text = item.amount.toString()
                 imageItemCheckBox.isChecked = item.isPurchased
+
+                imageItemCheckBox.setOnClickListener {
+                    if(imageItemCheckBox.isChecked){
+                        changeItemStatusInStorageToPurchased(item.copy(
+                            isPurchased = true
+                        ))
+                    } else {
+                        changeItemStatusInStorageToNotPurchased(item.copy(
+                            isPurchased = false
+                        ))
+                    }
+                }
+
+                if(imageItemCheckBox.isChecked){
+                    isInCartTextView.visibility = View.VISIBLE
+                } else {
+                    isInCartTextView.visibility = View.GONE
+                }
+
             }
         }
+
     }
 
-    class TextItemViewHolder(val bindingTextItem: ShoppingListTextItemBinding) :
+    inner class TextItemViewHolder(val bindingTextItem: ShoppingListTextItemBinding) :
         RecyclerView.ViewHolder(bindingTextItem.root){
+
             fun bindTextItem(item: ShoppingItemModel){
+
                 with(bindingTextItem){
+
                     titleTextItemTextView.text = item.title
                     textItemDescriptionTextView.text = item.description
+                    amountCountTextView.text = item.amount.toString()
                     textItemCheckBox.isChecked = item.isPurchased
+
+                    textItemCheckBox.setOnClickListener {
+                        if(textItemCheckBox.isChecked){
+                            changeItemStatusInStorageToPurchased(item.copy(
+                                isPurchased = true
+                            ))
+
+                        } else {
+                            changeItemStatusInStorageToNotPurchased(item.copy(
+                                isPurchased = false
+                            ))
+                        }
+                    }
+
+                    if(textItemCheckBox.isChecked){
+                        isInCartTextView.visibility = View.VISIBLE
+                    } else {
+                        isInCartTextView.visibility = View.GONE
+                    }
                 }
             }
     }
@@ -75,8 +119,11 @@ class ItemListAdapter(
         } else{
             (holder as TextItemViewHolder).bindTextItem(currentItem)
         }
+    }
 
-
+    fun setNewDataSet(list: List<ShoppingItemModel>){
+        this.list = list
+        notifyDataSetChanged()
     }
 
     companion object{

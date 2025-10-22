@@ -15,24 +15,56 @@
 
         <TextView
             android:id="@+id/titleTextItemTextView"
+            style="@style/Base.Widget.MaterialComponents.TextView.MyItemTitleText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textItemCheckBox"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/Base.Widget.MaterialComponents.TextView.MyItemTitleText" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textItemDescriptionTextView"
+            style="@style/Base.Widget.MaterialComponents.TextView.MyDescriptionText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/item_description"
             android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/titleTextItemTextView"
-            app:layout_constraintEnd_toStartOf="@id/textItemCheckBox"
+            android:hint="@string/item_description"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTextItemTextView" />
+
+        <TextView
+            android:id="@+id/amountTextView"
+            style="@style/Base.Widget.MaterialComponents.TextView.MyDescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/amount"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@id/textItemDescriptionTextView"
+            app:layout_constraintTop_toBottomOf="@id/textItemDescriptionTextView" />
+
+        <TextView
+            android:id="@+id/amountCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/_0"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintTop_toTopOf="@id/amountTextView"
+            app:layout_constraintStart_toEndOf="@id/amountTextView"
+            app:layout_constraintBottom_toBottomOf="@id/amountTextView"
             style="@style/Base.Widget.MaterialComponents.TextView.MyDescriptionText"/>
+        <TextView
+            android:id="@+id/isInCartTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_cart"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/amountTextView"
+            app:layout_constraintTop_toBottomOf="@id/amountTextView"
+            style="@style/Base.Widget.MaterialComponents.TextView.MyDescriptionText"
+            />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/textItemCheckBox"
@@ -41,6 +73,6 @@
             app:buttonTint="@color/colorPrimaryVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textItemDescriptionTextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
