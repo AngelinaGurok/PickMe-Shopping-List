@@ -1,21 +1,29 @@
 package com.example.shoppinglist.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.shoppinglist.MyApp
+import com.example.shoppinglist.R
 import com.example.shoppinglist.data.ShoppingItemModel
 import com.example.shoppinglist.databinding.FragmentAddItemBinding
 import com.example.shoppinglist.domain.ShoppingListViewModel
 import com.example.shoppinglist.domain.ShoppingListViewModelFactory
 import java.lang.Thread.sleep
+
+private const val GALLERY_REQUEST = 202
 
 
 class AddItemFragment : Fragment() {
@@ -29,12 +37,26 @@ class AddItemFragment : Fragment() {
         )
     }
 
+    lateinit var imagePickerActivityResult: ActivityResultLauncher<Intent>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         _binding = FragmentAddItemBinding.inflate(inflater, container, false)
+
+        imagePickerActivityResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result != null){
+                //link where image is store in the phone storage
+                val imageUri: Uri? = result.data?.data
+                Glide.with(this)
+                    .load(imageUri)
+                    .into(binding.addImageImageView)
+            }
+        }
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -73,6 +95,14 @@ class AddItemFragment : Fragment() {
             returnToShoppingListButton.setOnClickListener{
                 findNavController().popBackStack()
             }
+
+            addImageImageView.setOnClickListener {
+                getImageFromGallery()
+            }
+
+            underImageTextView.setOnClickListener {
+                getImageFromGallery()
+            }
         }
     }
 
@@ -87,18 +117,26 @@ class AddItemFragment : Fragment() {
     private fun decreaseAmount() {
         with(binding){
             var amount = amountTextView.text.toString().toInt()
-            if(amount > 0 ) {
+            if(amount > 1 ) {
                 amount--
                 amountTextView.text = amount.toString()
             }
         }
     }
 
+    private fun getImageFromGallery(){
+        val photoPickerIntent = Intent(Intent.ACTION_PICK)
+        photoPickerIntent.type = "image/*"
+
+
+        imagePickerActivityResult.launch(photoPickerIntent)
+    }
+
     private fun createItemToSave(): ShoppingItemModel? {
         return with(binding){
             ShoppingItemModel(
-                id = System.currentTimeMillis(),
                 title = titleEditText.text.toString(),
+                id = System.currentTimeMillis(),
                 amount = amountTextView.text.toString().toInt(),
                 description = descriptionEditText.text.toString(),
                 isPurchased = false,
