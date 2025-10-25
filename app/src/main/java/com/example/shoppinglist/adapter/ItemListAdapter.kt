@@ -1,17 +1,21 @@
 package com.example.shoppinglist.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.shoppinglist.data.ShoppingItemModel
 import com.example.shoppinglist.databinding.ShoppingListImageItemBinding
 import com.example.shoppinglist.databinding.ShoppingListTextItemBinding
 
 class ItemListAdapter(
+    val context: Context,
     var list: List<ShoppingItemModel>,
     val changeItemStatusInStorageToPurchased: (ShoppingItemModel) -> Unit,
-    val changeItemStatusInStorageToNotPurchased: (ShoppingItemModel) -> Unit
+    val changeItemStatusInStorageToNotPurchased: (ShoppingItemModel) -> Unit,
+    val deleteItem: (ShoppingItemModel) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     inner class ImageItemViewHolder(val bindingImageItem: ShoppingListImageItemBinding) :
@@ -23,7 +27,6 @@ class ItemListAdapter(
 
                 titleImageItemTextView.text = item.title
                 imageItemDescriptionTextView.text = item.description
-                item.image?.let { itemImageItemImageView.setImageResource(it) }
                 amountCountTextView.text = item.amount.toString()
                 imageItemCheckBox.isChecked = item.isPurchased
 
@@ -45,9 +48,17 @@ class ItemListAdapter(
                     isInCartTextView.visibility = View.GONE
                 }
 
+                deleteImageButton.setOnClickListener {
+                    deleteItem(item)
+                }
+
+                item.image.let { imageUri ->
+                        Glide.with(context)
+                            .load(imageUri)
+                            .into(itemImageItemImageView)
+                }
             }
         }
-
     }
 
     inner class TextItemViewHolder(val bindingTextItem: ShoppingListTextItemBinding) :
@@ -79,6 +90,10 @@ class ItemListAdapter(
                         isInCartTextView.visibility = View.VISIBLE
                     } else {
                         isInCartTextView.visibility = View.GONE
+                    }
+
+                    deleteImageButton.setOnClickListener {
+                        deleteItem(item)
                     }
                 }
             }

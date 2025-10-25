@@ -1,5 +1,6 @@
 package com.example.shoppinglist.domain
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shoppinglist.data.ShoppingItemModel
@@ -13,20 +14,21 @@ class ShoppingListViewModel(
     //val loadedDataFromServer: MutableLiveData<String> = MutableLiveData()
 
     val databaseData: MutableLiveData<List<ShoppingItemModel>> = MutableLiveData()
+    val lastImageUriData: MutableLiveData<Uri> = MutableLiveData()
+
 
     fun addItem(item: ShoppingItemModel){
         repository.addItem(item)
-
         databaseData.value = getAll()
     }
 
     fun updateItem(item: ShoppingItemModel){
         repository.updateItem(item)
-
         databaseData.value = getAll()    }
 
     fun deleteItem(item: ShoppingItemModel){
         repository.removeItem(item)
+        databaseData.value = getAll()
     }
 
     fun clearShoppingList(){
@@ -35,6 +37,10 @@ class ShoppingListViewModel(
 
     fun getAll() : ArrayList<ShoppingItemModel>{
         return repository.getAll()
+    }
+
+    fun setImageUri(imageUri: Uri) {
+        lastImageUriData.value = imageUri
     }
 
     /*fun loadDataFromServer(s: String) {
