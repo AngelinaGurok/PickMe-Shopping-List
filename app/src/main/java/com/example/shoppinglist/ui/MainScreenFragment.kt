@@ -53,12 +53,16 @@ class MainScreenFragment : Fragment() {
 
     private fun setupViews(){
         mainRecyclerViewAdapter = ItemListAdapter(
+            context = requireContext(),
             list = viewModel.getAll(),
             changeItemStatusInStorageToPurchased = {item ->
                 viewModel.updateItem(item)
             },
             changeItemStatusInStorageToNotPurchased = { item ->
                 viewModel.updateItem(item)
+            },
+            deleteItem = { item ->
+                viewModel.deleteItem(item)
             }
         )
         binding.shoppingListRecyclerView.adapter = mainRecyclerViewAdapter

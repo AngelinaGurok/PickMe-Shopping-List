@@ -52,9 +52,9 @@ class AddItemFragment : Fragment() {
             if (result != null){
                 //link where image is store in the phone storage
                 val imageUri: Uri? = result.data?.data
-                Glide.with(this)
-                    .load(imageUri)
-                    .into(binding.addImageImageView)
+                if(imageUri != null) {
+                    viewModel.setImageUri(imageUri)
+                }
             }
         }
         // Inflate the layout for this fragment
@@ -104,6 +104,16 @@ class AddItemFragment : Fragment() {
                 getImageFromGallery()
             }
         }
+
+        viewModel.lastImageUriData.value = null
+
+        viewModel.lastImageUriData.observe(viewLifecycleOwner){ imageUri ->
+            if(imageUri != null) {
+                Glide.with(this)
+                    .load(imageUri)
+                    .into(binding.addImageImageView)
+            }
+        }
     }
 
     private fun increaseAmount() {
@@ -128,19 +138,21 @@ class AddItemFragment : Fragment() {
         val photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
 
-
         imagePickerActivityResult.launch(photoPickerIntent)
     }
 
     private fun createItemToSave(): ShoppingItemModel? {
         return with(binding){
-            ShoppingItemModel(
-                title = titleEditText.text.toString(),
+            val title = titleEditText.text.toString()
+            if(title.isEmpty()){
+                return null
+            } else return ShoppingItemModel(
+                title = title,
                 id = System.currentTimeMillis(),
                 amount = amountTextView.text.toString().toInt(),
                 description = descriptionEditText.text.toString(),
                 isPurchased = false,
-                image = null
+                image = viewModel.lastImageUriData.value ?: null
             )
         }
     }

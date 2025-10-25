@@ -16,7 +16,7 @@ object Utils {
         ShoppingItemModel(
             id = 1,
             title = "title 1",
-            image = R.drawable.no_image,
+            image = null,
             amount = 1,
             description = "descriprion1",
             isPurchased = false
@@ -32,7 +32,7 @@ object Utils {
         ShoppingItemModel(
             id = 3,
             title = "title 3",
-            image = R.drawable.no_image,
+            image = null,
             amount = 1,
             description = "descriprion3",
             isPurchased = false
@@ -40,7 +40,7 @@ object Utils {
         ShoppingItemModel(
             id = 4,
             title = "title 4",
-            image = R.drawable.no_image,
+            image = null,
             amount = 1,
             description = "descriprion4",
             isPurchased = false
