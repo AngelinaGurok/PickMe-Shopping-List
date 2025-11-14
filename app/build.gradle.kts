@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
-
+    kotlin("kapt")
     kotlin("plugin.serialization") version "2.0.21"
 }
 
@@ -68,8 +68,8 @@ dependencies {
 
     //dagger 2
     implementation("com.google.dagger:dagger:2.56.2")
-    annotationProcessor ("com.google.dagger:dagger-compiler:2.56.2")
+    kapt ("com.google.dagger:dagger-compiler:2.56.2")
     implementation ("com.google.dagger:dagger-android:2.56.2")
     implementation ("com.google.dagger:dagger-android-support:2.56.2") // if you use the support libraries
-    annotationProcessor ("com.google.dagger:dagger-android-processor:2.56.2")
+    kapt ("com.google.dagger:dagger-android-processor:2.56.2")
 }
