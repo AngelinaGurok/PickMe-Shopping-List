@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,9 @@ import com.example.shoppinglist.data.ShoppingItemModel
 import com.example.shoppinglist.databinding.FragmentAddItemBinding
 import com.example.shoppinglist.domain.ShoppingListViewModel
 import com.example.shoppinglist.domain.ShoppingListViewModelFactory
+import com.example.shoppinglist.model.ShoppingItemRepository
 import java.lang.Thread.sleep
+import javax.inject.Inject
 
 private const val GALLERY_REQUEST = 202
 
@@ -31,13 +34,21 @@ class AddItemFragment : Fragment() {
     private var _binding: FragmentAddItemBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var shoppingItemRepository: ShoppingItemRepository
+
     private val viewModel: ShoppingListViewModel by activityViewModels() {
         ShoppingListViewModelFactory(
-            (requireActivity().application as MyApp).shoppingItemRepository
+            shoppingItemRepository
         )
     }
 
     lateinit var imagePickerActivityResult: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        (requireActivity().application as MyApp).databaseComponent.inject(this)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
